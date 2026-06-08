@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn It With Fran — CPR Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--red:#ff2d4e;--orange:#ff6b2b;--gold:#ffb800;--purple:#6c21f4;--navy:#0d0f2b;--white:#ffffff;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px 60px;position:relative;overflow:hidden;text-align:center;}
+.hglow{position:absolute;border-radius:50%;pointer-events:none;}
+.hero-content{position:relative;z-index:1;max-width:480px;}
+.tiktok-handle{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:30px;padding:8px 18px;font-size:13px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.7);margin-bottom:28px;}
+.tiktok-handle span{color:var(--red);}
+.tdot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pdot 1.5s ease infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,14vw,88px);line-height:0.95;letter-spacing:2px;margin-bottom:16px;}
+.hero-title .lr{color:var(--red);}
+.hero-title .lo{-webkit-text-stroke:2px #fff;color:transparent;}
+.hero-sub{font-size:16px;line-height:1.6;color:rgba(255,255,255,0.65);max-width:340px;margin:0 auto 32px;}
+.hero-sub strong{color:#fff;}
+.hero-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.stat-chip{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 16px;text-align:center;}
+.stat-chip .num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);line-height:1;}
+.stat-chip .lbl{font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;font-weight:500;letter-spacing:0.5px;}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;padding:18px 48px;border-radius:60px;text-decoration:none;border:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,45,78,0.4);}
+.scroll-hint{margin-top:24px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+.sarrow{display:block;font-size:20px;margin-top:4px;animation:bounce 2s ease infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* WHY */
+.why-section{padding:80px 20px;max-width:520px;margin:0 auto;position:relative;z-index:1;}
+.slabel{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--red);margin-bottom:8px;}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,54px);line-height:1;margin-bottom:24px;}
+.fact-cards{display:flex;flex-direction:column;gap:12px;}
+.fact-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:16px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;}
+.ficon{font-size:28px;flex-shrink:0;margin-top:2px;}
+.fnum{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);line-height:1;}
+.ftxt{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5;margin-top:2px;}
+.ftxt strong{color:#fff;}
+
+/* QUIZ */
+.quiz-section{padding:20px 20px 60px;max-width:520px;margin:0 auto;position:relative;z-index:1;}
+.quiz-wrap{background:linear-gradient(160deg,#1e0842,#0d1840);border:1px solid rgba(255,255,255,0.1);border-radius:24px;overflow:hidden;}
+.qtopbar{height:4px;background:linear-gradient(90deg,var(--red),var(--orange),var(--gold));}
+.qprogwrap{display:flex;gap:4px;padding:12px 16px 0;}
+.qpseg{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);overflow:hidden;}
+.qpfill{height:100%;width:0%;border-radius:2px;transition:width 0.4s ease;}
+.qhead{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 0;}
+.qbrand{font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;}
+.qbrand span{color:var(--red);}
+.qscorepill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;color:#fff;}
+.qscorepill .sn{color:var(--gold);}
+.qbody{padding:0 14px 16px;}
+.qscreen{display:none;flex-direction:column;align-items:center;padding-top:8px;}
+.qscreen.on{display:flex;}
+.qbadge{background:linear-gradient(135deg,var(--red),var(--orange));border-radius:20px;padding:4px 14px;font-size:10px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.qtxt{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;color:#fff;text-align:center;line-height:1.2;margin-bottom:10px;}
+.qillus{width:100%;display:flex;justify-content:center;margin-bottom:12px;}
+.qillus svg{border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+.opts{width:100%;display:flex;flex-direction:column;gap:8px;}
+.opt{width:100%;border:none;border-radius:12px;padding:0;cursor:pointer;font-family:'DM Sans',sans-serif;overflow:hidden;transition:transform 0.15s;background:transparent;}
+.opt:hover:not(.done){transform:scale(1.02);}
+.oi{display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;overflow:hidden;transition:all 0.3s;}
+.ol{width:40px;height:48px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,0.08);flex-shrink:0;}
+.ot{flex:1;padding:9px 11px;font-size:12.5px;font-weight:600;color:#fff;line-height:1.3;text-align:left;}
+.om{width:34px;height:48px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.opt.correct .oi{background:rgba(0,220,110,0.18);border-color:#00dc6e;}
+.opt.correct .ol{background:rgba(0,220,110,0.28);color:#00dc6e;}
+.opt.wrong .oi{background:rgba(255,45,78,0.18);border-color:var(--red);}
+.opt.wrong .ol{background:rgba(255,45,78,0.28);color:var(--red);}
+.opt.dim .oi{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);}
+.opt.dim .ol{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.25);}
+.opt.dim .ot{color:rgba(255,255,255,0.25);}
+.fbbox{width:100%;border-radius:12px;padding:12px 14px;margin-top:10px;display:none;animation:sup 0.3s ease;}
+.fbbox.on{display:block;}
+@keyframes sup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fbbox.good{background:rgba(0,220,110,0.12);border:1.5px solid rgba(0,220,110,0.35);}
+.fbbox.bad{background:rgba(255,45,78,0.12);border:1.5px solid rgba(255,45,78,0.35);}
+.fbtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.fbhead{font-size:13px;font-weight:700;color:#fff;}
+.fbbody{font-size:11.5px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.fbbody strong{color:#fff;}
+.nxtbtn{width:100%;margin-top:10px;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--orange));font-size:15px;font-weight:700;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;letter-spacing:0.3px;}
+.nxtbtn.on{display:block;}
+.nxtbtn:hover{opacity:0.9;}
+.rscreen{display:none;flex-direction:column;align-items:center;padding:20px 14px 16px;text-align:center;}
+.rscreen.on{display:flex;}
+.rring{width:90px;height:90px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:10px;border:3px solid;}
+.rbig{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;}
+.rsml{font-size:10px;color:rgba(255,255,255,0.45);margin-top:1px;}
+.rtitle{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:#fff;margin-bottom:4px;}
+.rsub{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:14px;max-width:270px;}
+.recap{width:100%;display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.rrow{border-radius:9px;padding:9px 11px;display:flex;align-items:flex-start;gap:8px;text-align:left;}
+.rrow.ok{background:rgba(0,220,110,0.09);border:0.5px solid rgba(0,220,110,0.22);}
+.rrow.no{background:rgba(255,45,78,0.09);border:0.5px solid rgba(255,45,78,0.22);}
+.rico{font-size:13px;flex-shrink:0;margin-top:1px;}
+.rtxt{font-size:11px;color:rgba(255,255,255,0.72);line-height:1.5;}
+.rtxt strong{color:#fff;font-size:11.5px;}
+.sharebox{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px;width:100%;margin-bottom:12px;}
+.sharebox p{font-size:12.5px;color:rgba(255,255,255,0.65);margin-bottom:6px;line-height:1.5;}
+.sharetags{font-size:13px;font-weight:700;color:var(--red);}
+.retrybtn{width:100%;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--red));font-size:14px;font-weight:700;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* ABOUT */
+.about-section{padding:60px 20px 80px;max-width:520px;margin:0 auto;position:relative;z-index:1;}
+.about-card{background:linear-gradient(135deg,rgba(108,33,244,0.15),rgba(255,45,78,0.08));border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.about-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--red));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;margin-bottom:14px;border:2px solid rgba(255,255,255,0.2);}
+.about-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:4px;}
+.about-handle{font-size:12px;color:var(--red);font-weight:700;letter-spacing:1px;margin-bottom:12px;}
+.about-text{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:18px;}
+.follow-btn{display:inline-block;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-weight:700;font-size:14px;padding:12px 32px;border-radius:30px;text-decoration:none;transition:transform 0.2s;}
+.follow-btn:hover{transform:translateY(-2px);}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,0.07);padding:24px 20px;text-align:center;position:relative;z-index:1;}
+footer p{font-size:11px;color:rgba(255,255,255,0.25);line-height:1.8;}
+footer a{color:rgba(255,255,255,0.4);text-decoration:none;}
+footer strong{color:rgba(255,255,255,0.5);}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hglow" style="width:500px;height:500px;background:radial-gradient(circle,rgba(108,33,244,0.35) 0%,transparent 70%);top:-100px;left:-100px;"></div>
+  <div class="hglow" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,45,78,0.3) 0%,transparent 70%);bottom:-50px;right:-80px;"></div>
+  <div class="hero-content">
+    <div class="tiktok-handle"><div class="tdot"></div><span>@</span>LearnItWithFran</div>
+    <div class="hero-eyebrow">Life-saving skills for everyone</div>
+    <h1 class="hero-title">
+      <span style="color:#fff">COULD</span><br>
+      <span class="lr">YOU</span><br>
+      <span class="lo">SAVE</span><br>
+      <span style="color:#fff">A LIFE?</span>
+    </h1>
+    <p class="hero-sub">Most cardiac arrests happen at home. The person most likely to save your loved one is <strong>you</strong>. Take the quiz. Learn the steps.</p>
+    <div class="hero-stats">
+      <div class="stat-chip"><div class="num">30K+</div><div class="lbl">Out-of-hospital<br>arrests per year UK</div></div>
+      <div class="stat-chip"><div class="num">3×</div><div class="lbl">More likely to<br>survive with CPR</div></div>
+      <div class="stat-chip"><div class="num">4 min</div><div class="lbl">Before brain<br>damage starts</div></div>
+    </div>
+    <a href="#quiz" class="cta-btn">Take the CPR Quiz ↓</a>
+    <div class="scroll-hint">scroll to learn<span class="sarrow">↓</span></div>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="slabel">Why this matters</div>
+  <h2 class="stitle">The facts are scary.<br>Your knowledge doesn't have to be.</h2>
+  <div class="fact-cards">
+    <div class="fact-card"><div class="ficon">🏠</div><div><div class="fnum">80%</div><div class="ftxt">of cardiac arrests happen at home. The nearest trained person is rarely a doctor — it's <strong>whoever is in the room</strong>.</div></div></div>
+    <div class="fact-card"><div class="ficon">🚑</div><div><div class="fnum">8–11 min</div><div class="ftxt">Average UK ambulance response time. Brain damage starts in <strong>4 minutes</strong>. CPR bridges that gap.</div></div></div>
+    <div class="fact-card"><div class="ficon">💪</div><div><div class="fnum">0 reasons</div><div class="ftxt">not to try. If a heart has stopped, <strong>you cannot make it worse</strong>. Doing nothing is the only wrong choice.</div></div></div>
+  </div>
+</section>
+
+<section class="quiz-section" id="quiz">
+  <div class="slabel" style="text-align:center;margin-bottom:8px;">Test yourself</div>
+  <h2 class="stitle" style="text-align:center;margin-bottom:20px;">The CPR Quiz</h2>
+  <div class="quiz-wrap">
+    <div class="qtopbar"></div>
+    <div class="qprogwrap" id="pw"></div>
+    <div class="qhead">
+      <div class="qbrand"><span>@</span>LearnItWithFran</div>
+      <div class="qscorepill">⭐ <span class="sn" id="sc">0</span> / 6</div>
+    </div>
+    <div class="qbody">
+      <div id="qz"></div>
+      <div class="rscreen" id="rs"></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-card">
+    <div class="about-avatar">F</div>
+    <div class="about-name">Learn It With Fran</div>
+    <div class="about-handle">@LearnItWithFran on TikTok</div>
+    <p class="about-text">Life-saving skills shouldn't be gatekept behind expensive courses and medical jargon. This page is about making first aid knowledge simple, accessible, and impossible to ignore. CPR. Infant choking. Safe sleep. Water safety. One post at a time.</p>
+    <a href="https://www.tiktok.com/@LearnItWithFran" class="follow-btn">Follow on TikTok ♡</a>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong>Sources:</strong> British Heart Foundation · Resuscitation Council UK · NHS England<br>
+    This page is for awareness purposes only. Always call <strong>999</strong> in a real emergency.<br><br>
+    Made with ♡ by <a href="https://www.tiktok.com/@LearnItWithFran">@LearnItWithFran</a>
+  </p>
+</footer>
+
+<script>
+var Qs=[
+{q:"Someone collapses. What do you do FIRST? 😱",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><ellipse cx="130" cy="152" rx="75" ry="5" fill="#1a0a30"/><rect x="80" y="98" width="100" height="46" rx="9" fill="#c8845a"/><rect x="86" y="104" width="88" height="34" rx="7" fill="#3a5fa0" opacity="0.75"/><rect x="56" y="104" width="24" height="11" rx="5" fill="#c8845a"/><rect x="38" y="109" width="20" height="9" rx="4" fill="#c8845a"/><rect x="180" y="104" width="24" height="11" rx="5" fill="#c8845a"/><rect x="202" y="109" width="20" height="9" rx="4" fill="#c8845a"/><rect x="90" y="138" width="26" height="18" rx="5" fill="#1a1a2a"/><rect x="144" y="138" width="26" height="18" rx="5" fill="#1a1a2a"/><rect x="124" y="84" width="16" height="16" rx="4" fill="#c8845a"/><ellipse cx="130" cy="72" rx="24" ry="26" fill="#c8845a"/><ellipse cx="130" cy="67" rx="20" ry="19" fill="#daa070"/><path d="M120 63 Q124 61 128 63" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><path d="M132 63 Q136 61 140 63" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><path d="M125 76 Q130 79 135 76" fill="none" stroke="#a05030" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="106" cy="68" rx="4" ry="6" fill="#c8845a"/><ellipse cx="154" cy="68" rx="4" ry="6" fill="#c8845a"/><path d="M106 50 Q130 42 154 50 Q154 68 130 70 Q106 68 106 50Z" fill="#3a2010"/><ellipse cx="28" cy="82" rx="13" ry="14" fill="#a06040"/><ellipse cx="28" cy="78" rx="10" ry="10" fill="#c8845a"/><ellipse cx="23" cy="74" rx="2" ry="2" fill="#3a1a00"/><ellipse cx="33" cy="74" rx="2" ry="2" fill="#3a1a00"/><path d="M22 82 Q28 86 34 82" fill="none" stroke="#8a4020" stroke-width="1.2" stroke-linecap="round"/><rect x="18" y="94" width="18" height="26" rx="5" fill="#c04040"/><line x1="12" y1="68" x2="6" y2="62" stroke="#ffb800" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="74" x2="2" y2="74" stroke="#ffb800" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="232" cy="82" rx="13" ry="14" fill="#7a5030"/><ellipse cx="232" cy="78" rx="10" ry="10" fill="#c8845a"/><rect x="222" y="94" width="18" height="26" rx="5" fill="#404080"/><rect x="240" y="68" width="11" height="18" rx="3" fill="#222"/><rect x="241" y="70" width="9" height="12" rx="2" fill="#1a3a5c"/><text x="246" y="79" font-size="5" fill="#fff" font-family="sans-serif" text-anchor="middle">999</text><text x="130" y="159" font-size="7" fill="rgba(255,255,255,0.22)" font-family="DM Sans,sans-serif" text-anchor="middle">Person unconscious on ground — bystanders present</text></svg>`,
+opts:["Start chest compressions immediately","Tap shoulders and shout 'Are you okay?'","Wait for an ambulance to arrive","Give them water and loosen clothing"],correct:1,
+why:["Slow down! Check responsiveness first — they could be unconscious but still breathing. Starting compressions unnecessarily can cause harm.","","Waiting is the worst thing you can do. Brain damage starts in 4 minutes. Act NOW and get someone else to call 999.","Never give water to an unconscious person — serious choking risk. And loosening clothing wastes critical seconds."],
+good:{h:"Check first — always! 🙌",b:"Tap both shoulders firmly, shout loudly. No response AND no normal breathing — that is your green light to start CPR and call 999."},bh:"Not quite — here's why:"},
+
+{q:"Where exactly do your hands go? 🤲",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><ellipse cx="130" cy="152" rx="75" ry="5" fill="#1a0a30"/><rect x="80" y="96" width="100" height="50" rx="9" fill="#c8845a"/><rect x="86" y="102" width="88" height="38" rx="7" fill="#e09a6e"/><rect x="124" y="100" width="16" height="36" rx="3" fill="rgba(255,184,0,0.15)" stroke="#ffb800" stroke-width="1.5" stroke-dasharray="3,2"/><path d="M123 108 Q106 108 102 116" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/><path d="M123 118 Q104 118 100 126" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/><path d="M137 108 Q154 108 158 116" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/><path d="M137 118 Q156 118 160 126" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/><path d="M124 112 Q124 108 130 110 Q136 108 136 112 Q136 117 130 121 Q124 117 124 112Z" fill="rgba(255,80,80,0.18)"/><circle cx="96" cy="120" r="12" fill="rgba(108,33,244,0.25)" stroke="#6c21f4" stroke-width="1.5"/><text x="96" y="124" font-size="9" fill="#bf9fff" font-family="DM Sans,sans-serif" font-weight="900" text-anchor="middle">A</text><circle cx="130" cy="120" r="12" fill="rgba(255,184,0,0.25)" stroke="#ffb800" stroke-width="2"/><text x="130" y="124" font-size="9" fill="#ffdd88" font-family="DM Sans,sans-serif" font-weight="900" text-anchor="middle">B</text><circle cx="164" cy="120" r="12" fill="rgba(108,33,244,0.25)" stroke="#6c21f4" stroke-width="1.5"/><text x="164" y="124" font-size="9" fill="#bf9fff" font-family="DM Sans,sans-serif" font-weight="900" text-anchor="middle">C</text><circle cx="130" cy="143" r="9" fill="rgba(255,45,78,0.2)" stroke="rgba(255,45,78,0.45)" stroke-width="1"/><text x="130" y="147" font-size="8" fill="#ff8090" font-family="DM Sans,sans-serif" font-weight="900" text-anchor="middle">D</text><text x="96" y="140" font-size="6" fill="rgba(255,255,255,0.28)" font-family="DM Sans,sans-serif" text-anchor="middle">Left</text><text x="164" y="140" font-size="6" fill="rgba(255,255,255,0.28)" font-family="DM Sans,sans-serif" text-anchor="middle">Right</text><text x="130" y="157" font-size="6" fill="rgba(255,255,255,0.28)" font-family="DM Sans,sans-serif" text-anchor="middle">Stomach</text><ellipse cx="130" cy="72" rx="24" ry="26" fill="#c8845a"/><ellipse cx="130" cy="67" rx="20" ry="19" fill="#daa070"/><path d="M120 63 Q124 61 128 63" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><path d="M132 63 Q136 61 140 63" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><path d="M106 50 Q130 42 154 50 Q154 68 130 70 Q106 68 106 50Z" fill="#3a2010"/><rect x="56" y="104" width="24" height="11" rx="5" fill="#c8845a"/><rect x="180" y="104" width="24" height="11" rx="5" fill="#c8845a"/></svg>`,
+opts:["A — Left side, over the heart","B — Centre of the chest, breastbone","C — Right side of chest","D — Lower stomach area"],correct:1,
+why:["Common mistake! Heart IS on the left but hands go on the CENTRE breastbone. This pumps blood equally to both sides through the rigid sternum.","","Right side has no sternum underneath — just ribs over soft tissue. Nothing firm to compress against. Centre only, every time.","Pressing on the stomach risks serious internal injury and does nothing for the heart. The breastbone is the only correct spot."],
+good:{h:"Correct! Centre every time! 💪",b:"Heel of your dominant hand on the breastbone — the hard flat bone dead centre. Other hand on top, fingers interlocked, arms dead straight."},bh:"Oops — here's the truth:"},
+
+{q:"Your arms are straight. How deep do you push? 👇",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><ellipse cx="130" cy="152" rx="75" ry="5" fill="#1a0a30"/><rect x="80" y="96" width="100" height="48" rx="9" fill="#c8845a"/><rect x="86" y="102" width="88" height="36" rx="7" fill="#3a5fa0" opacity="0.8"/><rect x="122" y="103" width="16" height="28" rx="3" fill="rgba(255,184,0,0.1)" stroke="rgba(255,184,0,0.35)" stroke-width="1"/><rect x="112" y="84" width="36" height="16" rx="5" fill="#9a6040"/><rect x="108" y="76" width="10" height="13" rx="3" fill="#9a6040"/><rect x="120" y="76" width="10" height="13" rx="3" fill="#9a6040"/><rect x="132" y="76" width="10" height="13" rx="3" fill="#9a6040"/><rect x="144" y="76" width="8" height="13" rx="3" fill="#9a6040"/><rect x="110" y="66" width="40" height="14" rx="4" fill="#7a4828"/><rect x="106" y="58" width="10" height="11" rx="3" fill="#7a4828"/><rect x="118" y="58" width="10" height="11" rx="3" fill="#7a4828"/><rect x="130" y="58" width="10" height="11" rx="3" fill="#7a4828"/><rect x="142" y="58" width="8" height="11" rx="3" fill="#7a4828"/><rect x="103" y="72" width="54" height="8" rx="3" fill="#8a5230"/><rect x="100" y="28" width="13" height="32" rx="4" fill="#9a6040"/><rect x="147" y="28" width="13" height="32" rx="4" fill="#9a6040"/><rect x="92" y="22" width="76" height="12" rx="5" fill="#7a4828"/><line x1="44" y1="96" x2="44" y2="136" stroke="rgba(255,184,0,0.8)" stroke-width="2"/><line x1="38" y1="96" x2="50" y2="96" stroke="#ffb800" stroke-width="1.5"/><line x1="38" y1="136" x2="50" y2="136" stroke="#ffb800" stroke-width="1.5"/><line x1="50" y1="109" x2="58" y2="109" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="2,2"/><line x1="50" y1="118" x2="58" y2="118" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="2,2"/><line x1="50" y1="130" x2="58" y2="130" stroke="#00dc6e" stroke-width="1.5"/><text x="32" y="107" font-size="6" fill="rgba(255,255,255,0.3)" font-family="DM Sans,sans-serif" text-anchor="middle">1-2cm</text><text x="32" y="120" font-size="6" fill="rgba(255,255,255,0.3)" font-family="DM Sans,sans-serif" text-anchor="middle">3-4cm</text><text x="32" y="132" font-size="6" fill="#00dc6e" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">5-6cm</text><path d="M130 16 L130 36" stroke="#ff2d4e" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M123 30 L130 40 L137 30" fill="none" stroke="#ff2d4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="130" y="13" font-size="7.5" fill="#ff5060" font-family="DM Sans,sans-serif" font-weight="900" text-anchor="middle">PUSH DOWN</text></svg>`,
+opts:["1–2 cm — gentle, don't hurt them","3–4 cm — medium pressure","5–6 cm — deep and committed","As far as possible — harder is better"],correct:2,
+why:["Far too shallow. Blood simply will not circulate at 1–2 cm. You MUST push hard — gentle CPR is completely ineffective CPR.","Not enough. 3–4 cm won't create the pressure needed to move blood effectively. Commit to the full 5–6 cm.","","Too much force risks fracturing ribs or damaging organs. 5–6 cm is the evidence-based target. Hard and controlled — not uncontrolled."],
+good:{h:"5–6 cm — commit to it! 🔥",b:"That's roughly the width of your fist. Push HARD, release FULLY each time. Yes it might crack a rib — but broken ribs heal. Always push deep."},bh:"Not quite — here's why:"},
+
+{q:"How fast do you compress? Pick the right speed! 🎵",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><rect x="88" y="18" width="84" height="104" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="130" y1="106" x2="110" y2="32" stroke="#ffb800" stroke-width="2.5" stroke-linecap="round"/><circle cx="108" cy="29" r="6" fill="#ffb800"/><line x1="100" y1="108" x2="100" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><line x1="115" y1="108" x2="115" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><line x1="130" y1="108" x2="130" y2="97" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><line x1="145" y1="108" x2="145" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><line x1="160" y1="108" x2="160" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><rect x="104" y="108" width="52" height="8" rx="3" fill="rgba(255,255,255,0.1)"/><rect x="106" y="118" width="48" height="26" rx="5" fill="rgba(255,184,0,0.1)" stroke="rgba(255,184,0,0.3)" stroke-width="1"/><text x="130" y="128" font-size="7.5" fill="rgba(255,184,0,0.6)" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">TARGET BPM</text><text x="130" y="140" font-size="14" fill="#ffb800" font-family="Bebas Neue,sans-serif" text-anchor="middle">100-120</text><path d="M190 78 L200 78 L204 58 L209 103 L213 53 L218 78 L232 78" fill="none" stroke="#ff2d4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="18" y="52" width="62" height="52" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><text x="49" y="72" font-size="16" font-family="sans-serif" text-anchor="middle">🎵</text><text x="49" y="84" font-size="7" fill="rgba(255,255,255,0.6)" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">Stayin' Alive</text><text x="49" y="94" font-size="6.5" fill="rgba(255,255,255,0.35)" font-family="DM Sans,sans-serif" text-anchor="middle">Bee Gees</text><text x="49" y="104" font-size="6" fill="#ffb800" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">= perfect tempo</text><text x="130" y="157" font-size="7" fill="rgba(255,255,255,0.2)" font-family="DM Sans,sans-serif" text-anchor="middle">Hum this song to keep the right pace while compressing</text></svg>`,
+opts:["60 per minute — slow and steady","80 per minute — moderate walking pace","100–120 per minute — fast and rhythmic","150+ per minute — as fast as possible"],correct:2,
+why:["Far too slow. 60 per minute won't sustain adequate blood flow to the brain. The minimum target is 100. Think Stayin' Alive, not a lullaby.","Still not fast enough. 80 per minute is insufficient. You need real urgency and rhythm — pick up the pace significantly.","","Faster is NOT better. Over 120 per minute means compressions become shallow and you exhaust yourself in seconds. Controlled rhythm at 100–120 is the sweet spot."],
+good:{h:"Perfect rhythm! 🎶",b:"100–120 per minute. Hum 'Stayin' Alive' by the Bee Gees — it is literally the right BPM. Or count aloud: '1-and-2-and-3...' to keep your pace."},bh:"Not quite the right beat:"},
+
+{q:"Your arms are burning. What do you do? 💪",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><ellipse cx="95" cy="154" rx="62" ry="5" fill="#1a0a30"/><rect x="38" y="104" width="88" height="40" rx="8" fill="#c8845a"/><rect x="44" y="110" width="76" height="28" rx="6" fill="#3a5fa0" opacity="0.75"/><ellipse cx="82" cy="100" rx="21" ry="23" fill="#c8845a"/><ellipse cx="82" cy="95" rx="17" ry="16" fill="#daa070"/><path d="M73 91 Q77 89 81 91" fill="none" stroke="#7a4020" stroke-width="1.3" stroke-linecap="round"/><path d="M83 91 Q87 89 91 91" fill="none" stroke="#7a4020" stroke-width="1.3" stroke-linecap="round"/><rect x="38" y="138" width="36" height="16" rx="5" fill="#1a1a2a"/><rect x="84" y="138" width="36" height="16" rx="5" fill="#1a1a2a"/><ellipse cx="82" cy="65" rx="13" ry="14" fill="#7a5030"/><ellipse cx="82" cy="61" rx="10" ry="10" fill="#c8845a"/><ellipse cx="76" cy="57" rx="2" ry="2" fill="#3a1a00"/><ellipse cx="86" cy="57" rx="2" ry="2" fill="#3a1a00"/><ellipse cx="74" cy="52" rx="1.5" ry="2.5" fill="rgba(100,180,255,0.5)"/><ellipse cx="91" cy="49" rx="1.5" ry="2.5" fill="rgba(100,180,255,0.5)"/><path d="M77 65 Q82 63 87 65" fill="none" stroke="#a06040" stroke-width="1.2" stroke-linecap="round"/><rect x="66" y="76" width="32" height="22" rx="5" fill="#c05030"/><path d="M146 115 Q163 106 178 115" fill="none" stroke="#00dc6e" stroke-width="2.5" stroke-linecap="round"/><path d="M170 109 L178 115 L172 122" fill="none" stroke="#00dc6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="160" y="103" font-size="8" fill="#00dc6e" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">SWAP!</text><ellipse cx="205" cy="82" rx="15" ry="16" fill="#5a3820"/><ellipse cx="205" cy="78" rx="12" ry="12" fill="#c8845a"/><ellipse cx="200" cy="74" rx="2.5" ry="2.5" fill="#3a1a00"/><ellipse cx="210" cy="74" rx="2.5" ry="2.5" fill="#3a1a00"/><path d="M199 83 Q205 87 211 83" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><rect x="191" y="97" width="28" height="34" rx="6" fill="#2060c0"/><rect x="178" y="101" width="15" height="10" rx="4" fill="#c8845a"/><rect x="188" y="28" width="58" height="26" rx="7" fill="rgba(0,220,110,0.1)" stroke="rgba(0,220,110,0.3)" stroke-width="1"/><text x="217" y="40" font-size="7.5" fill="#00dc6e" font-family="DM Sans,sans-serif" font-weight="700" text-anchor="middle">Every 2 min</text><text x="217" y="51" font-size="7" fill="rgba(0,220,110,0.65)" font-family="DM Sans,sans-serif" text-anchor="middle">swap if possible</text></svg>`,
+opts:["Stop CPR and rest for 30 seconds","Slow down to a gentler pace","Shout for someone to swap in — don't stop compressions","You've done enough — stop"],correct:2,
+why:["Never stop. Every pause means blood stops circulating and oxygen stops reaching the brain. Rest is not an option — get someone to swap.","Slowing down is as bad as stopping. CPR must stay at 100–120 per minute and 5–6 cm deep. Slowing makes it completely ineffective.","","There is no 'done enough' moment. You keep going until paramedics take over OR the person starts breathing normally. Stopping prematurely is the only wrong choice."],
+good:{h:"Swap in — never stop! 🔄",b:"Shout for someone nearby to take over immediately — ideally every 2 minutes. The moment they're in position, step back and let them work. Compressions must be continuous."},bh:"Here's the thing:"},
+
+{q:"TRUE or FALSE: You can make things worse by doing CPR? 🤔",svg:`<svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg"><rect width="260" height="160" fill="#0f0820" rx="10"/><rect x="12" y="18" width="108" height="128" rx="11" fill="rgba(255,45,78,0.08)" stroke="rgba(255,45,78,0.28)" stroke-width="1.5"/><ellipse cx="66" cy="53" rx="19" ry="19" fill="rgba(255,45,78,0.15)"/><ellipse cx="66" cy="53" rx="15" ry="15" fill="#c8845a"/><ellipse cx="60" cy="48" rx="2.5" ry="3" fill="#3a1a00"/><ellipse cx="72" cy="48" rx="2.5" ry="3" fill="#3a1a00"/><path d="M57 42 Q61 40 65 42" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><path d="M67 42 Q71 40 75 42" fill="none" stroke="#7a4020" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="66" cy="60" rx="4.5" ry="3.5" fill="#8a3020"/><text x="66" y="88" font-size="10" font-family="Bebas Neue,sans-serif" fill="#ff6080" text-anchor="middle" letter-spacing="1">TRUE</text><text x="66" y="101" font-size="6.5" fill="rgba(255,100,128,0.65)" font-family="DM Sans,sans-serif" text-anchor="middle">I might hurt them</text><text x="66" y="138" font-size="6" fill="rgba(255,100,128,0.45)" font-family="DM Sans,sans-serif" text-anchor="middle">Fear holds people back</text><rect x="140" y="18" width="108" height="128" rx="11" fill="rgba(0,220,110,0.08)" stroke="rgba(0,220,110,0.28)" stroke-width="1.5"/><ellipse cx="194" cy="53" rx="19" ry="19" fill="rgba(0,220,110,0.15)"/><ellipse cx="194" cy="53" rx="15" ry="15" fill="#c8845a"/><ellipse cx="188" cy="48" rx="2.5" ry="2.5" fill="#3a1a00"/><ellipse cx="200" cy="48" rx="2.5" ry="2.5" fill="#3a1a00"/><path d="M187 58 Q194 63 201 58" fill="none" stroke="#7a4020" stroke-width="1.8" stroke-linecap="round"/><rect x="178" y="68" width="32" height="10" rx="4" fill="#9a6040"/><text x="194" y="90" font-size="10" font-family="Bebas Neue,sans-serif" fill="#00dc6e" text-anchor="middle" letter-spacing="1">FALSE</text><text x="194" y="103" font-size="6.5" fill="rgba(0,220,110,0.65)" font-family="DM Sans,sans-serif" text-anchor="middle">Always try. Always.</text><path d="M186 114 Q186 109 194 112 Q202 109 202 114 Q202 120 194 125 Q186 120 186 114Z" fill="rgba(0,220,110,0.2)" stroke="rgba(0,220,110,0.5)" stroke-width="1"/><text x="194" y="120" font-size="9" fill="#00dc6e" font-family="sans-serif" text-anchor="middle">✓</text><text x="194" y="138" font-size="6" fill="rgba(0,220,110,0.55)" font-family="DM Sans,sans-serif" text-anchor="middle">Action saves lives</text></svg>`,
+opts:["TRUE — I could crack ribs or cause injury","FALSE — if heart stopped, doing something beats nothing","TRUE — better to wait for professionals","I would freeze — I wouldn't know what to do"],correct:1,
+why:["Yes ribs can crack — but a cracked rib heals in weeks. Death does not reverse. If their heart has stopped, CPR is their only chance. You cannot make a dead situation worse by trying.","","Waiting for a professional when a heart has stopped guarantees death. Brain damage in 4 minutes, ambulance in 8–11. YOU are the first responder — own it.","The most honest answer — and exactly why this quiz exists. You now know the steps. No reason to freeze anymore."],
+good:{h:"FALSE — and this changes everything! 💚",b:"Fear of doing it wrong is the #1 reason bystanders don't act. But if a heart has stopped, there is no wrong move. Cracked ribs heal. Always try. Always."},bh:"This fear stops people acting — here's the truth:"}
+];
+
+var cur=0,score=0,picks=[];
+var scEl=document.getElementById('sc');
+var qz=document.getElementById('qz');
+var rs=document.getElementById('rs');
+var pw=document.getElementById('pw');
+for(var i=0;i<Qs.length;i++){var s=document.createElement('div');s.className='qpseg';s.id='ps'+i;var f=document.createElement('div');f.className='qpfill';f.id='pf'+i;s.appendChild(f);pw.appendChild(s);}
+
+function render(idx){
+  var q=Qs[idx];var L=['A','B','C','D'];
+  var h='<div class="qscreen on"><div class="qbadge">Question '+(idx+1)+' of '+Qs.length+'</div>';
+  h+='<div class="qtxt">'+q.q+'</div>';
+  h+='<div class="qillus">'+q.svg+'</div>';
+  h+='<div class="opts">';
+  for(var i=0;i<q.opts.length;i++)h+='<button class="opt" id="o'+i+'" onclick="pick('+i+')"><div class="oi"><div class="ol">'+L[i]+'</div><div class="ot">'+q.opts[i]+'</div><div class="om" id="m'+i+'"></div></div></button>';
+  h+='</div><div class="fbbox" id="fb"></div>';
+  h+='<button class="nxtbtn" id="nb" onclick="nxt()">'+(idx<Qs.length-1?'Next question ➜':'See my results 🎉')+'</button></div>';
+  qz.innerHTML=h;
+}
+
+function pick(i){
+  var q=Qs[cur];var opts=document.querySelectorAll('.opt');
+  if(opts[0].classList.contains('done'))return;
+  var ok=(i===q.correct);if(ok)score++;picks[cur]=i;scEl.textContent=score;
+  opts.forEach(function(o,idx){o.classList.add('done');if(idx===q.correct){o.classList.add('correct');document.getElementById('m'+idx).textContent='✓';}else if(idx===i&&!ok){o.classList.add('wrong');document.getElementById('m'+idx).textContent='✗';}else o.classList.add('dim');});
+  var pf=document.getElementById('pf'+cur);if(pf){pf.style.width='100%';pf.style.background=ok?'#00dc6e':'#ff2d4e';}
+  var fb=document.getElementById('fb');
+  if(ok){fb.className='fbbox on good';fb.innerHTML='<div class="fbtop"><div style="font-size:18px">🟢</div><div class="fbhead">'+q.good.h+'</div></div><div class="fbbody">'+q.good.b+'</div>';}
+  else{fb.className='fbbox on bad';var why=q.why[i]||'Not correct — right answer highlighted.';fb.innerHTML='<div class="fbtop"><div style="font-size:18px">🔴</div><div class="fbhead">'+q.bh+'</div></div><div class="fbbody">'+why+'<br><br><strong>Remember: </strong>'+q.good.b+'</div>';}
+  document.getElementById('nb').classList.add('on');
+}
+
+function nxt(){cur++;if(cur>=Qs.length){showResult();return;}render(cur);}
+
+function showResult(){
+  qz.innerHTML='';
+  var pct=score/Qs.length;
+  var rc=pct>=0.83?'#ffb800':pct>=0.5?'#00dc6e':'#ff2d4e';
+  var grade=pct>=0.83?'CPR Champion! 🏆':pct>=0.5?'Getting there! 💪':'Keep learning 📖';
+  var sub=pct>=0.83?'Perfect or near-perfect. You could genuinely save a life today. Share this so others can learn too.':pct>=0.5?'Solid effort! Review your wrong answers and go again — this knowledge sticks fast.':'Don\'t worry — nobody is born knowing this. Go again, it\'ll click.';
+  var sum=[['Check responsiveness — tap and shout FIRST','Assess before acting'],['Hands on centre of chest — the breastbone','Not left, not right, not stomach'],['Push 5–6 cm deep — commit to it','Too shallow = no blood flow'],['100–120 per minute — Stayin\' Alive tempo','Rhythm and speed are everything'],['Swap every 2 minutes — never stop','Fresh arms, continuous effort'],['You CANNOT make it worse — always try','Fear is the only thing that can stop you']];
+  var recapH='';for(var i=0;i<Qs.length;i++){var ok=(picks[i]===Qs[i].correct);recapH+='<div class="rrow '+(ok?'ok':'no')+'"><div class="rico">'+(ok?'✅':'❌')+'</div><div class="rtxt"><strong>Q'+(i+1)+':</strong> '+sum[i][0]+'<br><span style="color:rgba(255,255,255,0.38);font-size:10px">'+sum[i][1]+'</span></div></div>';}
+  rs.innerHTML='<div class="rring" style="border-color:'+rc+'"><div class="rbig" style="color:'+rc+'">'+score+'/6</div><div class="rsml">CPR quiz</div></div><div class="rtitle">'+grade+'</div><div class="rsub">'+sub+'</div><div class="recap">'+recapH+'</div><div class="sharebox"><p>💬 Drop your score in the comments and tag someone who needs this!</p><div class="sharetags">#LearnItWithFran #CPR #FirstAid #SaveALife</div></div><button class="retrybtn" onclick="restart()">Try again ↩</button>';
+  rs.className='rscreen on';
+}
+
+function restart(){cur=0;score=0;picks=[];scEl.textContent='0';rs.className='rscreen';rs.innerHTML='';for(var i=0;i<Qs.length;i++){var pf=document.getElementById('pf'+i);if(pf){pf.style.width='0%';pf.style.background='#fff';}}render(0);}
+render(0);
+</script>
+</body>
+</html>
